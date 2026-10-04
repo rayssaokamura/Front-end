@@ -1,5 +1,11 @@
 import { useRef, useState } from "react";
 
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
 function UploadArea({ setResultado }) {
   const inputRef = useRef(null);
 
@@ -64,18 +70,21 @@ function UploadArea({ setResultado }) {
         }
       `;
 
-      const respostaAnime = await fetch("https://graphql.anilist.co", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: query,
-          variables: {
-            id: anime.anilist,
+      const respostaAnime = await fetch(
+        "https://graphql.anilist.co",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        }),
-      });
+          body: JSON.stringify({
+            query: query,
+            variables: {
+              id: anime.anilist,
+            },
+          }),
+        }
+      );
 
       const dadosAnime = await respostaAnime.json();
 
@@ -104,37 +113,76 @@ function UploadArea({ setResultado }) {
   }
 
   return (
-    <section>
-      <h2>Upload de Arquivo</h2>
+    <Card
+      sx={{
+        maxWidth: 600,
+        margin: "30px auto",
+        borderRadius: 3,
+      }}
+    >
+      <CardContent
+        sx={{
+          textAlign: "center",
+          padding: 4,
+        }}
+      >
+        <Typography variant="h5">
+          Upload de Arquivo
+        </Typography>
 
-      <input
-        ref={inputRef}
-        type="file"
-        accept="image/jpeg,image/png,image/gif"
-        hidden
-        onChange={handleArquivo}
-      />
+        <Typography color="text.secondary">
+          Selecione uma imagem de uma cena de anime
+        </Typography>
 
-      <button onClick={() => inputRef.current.click()}>
-        Escolher imagem
-      </button>
+        <Box sx={{ margin: 3 }}>
+          <input
+            ref={inputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/gif"
+            hidden
+            onChange={handleArquivo}
+          />
 
-      {arquivo && (
-        <button onClick={buscarAnime} disabled={carregando}>
-          Buscar anime
-        </button>
-      )}
+          {!preview && (
+            <Button
+              variant="contained"
+              onClick={() => inputRef.current.click()}
+            >
+              Escolher imagem
+            </Button>
+          )}
 
-      {arquivo && <p>Arquivo selecionado: {arquivo.name}</p>}
+          {preview && (
+            <>
+              <Box
+                component="img"
+                src={preview}
+                alt="Prévia da imagem"
+                sx={{
+                  width: "100%",
+                  maxWidth: 400,
+                  borderRadius: 2,
+                  marginBottom: 2,
+                }}
+              />
 
-      {preview && (
-        <img
-          src={preview}
-          alt="Prévia da imagem selecionada"
-          width="300"
-        />
-      )}
-    </section>
+              <Typography color="text.secondary">
+                {arquivo.name}
+              </Typography>
+
+              <Button
+                variant="contained"
+                onClick={buscarAnime}
+                disabled={carregando}
+                sx={{ marginTop: 2 }}
+              >
+                Buscar anime
+              </Button>
+            </>
+          )}
+        </Box>
+      </CardContent>
+    </Card>
   );
 }
 
