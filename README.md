@@ -1,16 +1,55 @@
-# React + Vite
+# 🎬 Anime Episode Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O **Anime Episode Search** é uma aplicação web interativa em React que permite identificar qual é o anime, o número do episódio e o minuto exato de uma cena. A busca pode ser feita colando a URL de uma imagem ou enviando um arquivo local do computador ou telemóvel.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Funcionalidades
 
-## React Compiler
+- **Busca por Link (URL):** Cole a URL direta de uma imagem (.jpg, .png) para realizar a identificação.
+- **Upload de Ficheiro Local:** Selecione uma imagem armazenada no seu dispositivo com visualização prévia antes da busca.
+- **Identificação Precisa:** Exibe o título do anime em inglês e romaji, o número do episódio, a percentagem de similaridade e a marcação de tempo da cena.
+- **Interface Responsiva & Glassmorphism:** Design moderno estilizado com Material UI e transparência adaptativa.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologias e Bibliotecas Utilizadas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **[React](https://react.dev/):** Biblioteca principal para a construção da interface.
+- **[Vite](https://vitejs.dev/):** Ferramenta para criação e build rápido do projeto frontend.
+- **[Material UI (@mui/material)](https://mui.com/):** Biblioteca externa de componentes de UI (`Card`, `Button`, `TextField`, `CircularProgress`, etc.).
+- **[Emotion (@emotion/react e @emotion/styled)](https://emotion.sh/):** Utilizada internamente pelo Material UI para a estilização dos componentes.
+
+---
+
+## 🌐 APIs Utilizadas
+
+1. **[trace.moe API](https://soruly.github.io/trace.moe-api/):** 
+   - API pública e aberta para reconhecimento visual de imagens de animes.
+   - Suporta busca via query string (`GET`) e envio de ficheiros via `FormData` (`POST`).
+2. **[AniList GraphQL API](https://anilist.gitbook.io/anilist-apidocs/):** 
+   - API pública para consultar dados de mídia.
+   - Utilizada para traduzir o ID retornado pelo trace.moe no título oficial do anime em Romaji e Inglês.
+
+---
+
+## 🧠 Hooks do React Aplicados
+
+- **`useReducer`:** Gerencia o fluxo de estados das requisições (`BUSCA_INICIO`, `BUSCA_SUCESSO`, `BUSCA_ERRO`), mantendo a lógica de carregamento e mensagens de erro organizadas nos componentes de busca.
+- **`useRef`:** Utilizado no componente de upload para referenciar de forma imperativa o input do tipo `file` e disparar a janela de seleção de ficheiros.
+- **`useState`:** Controle de inputs, links de pré-visualização da imagem e armazenamento do resultado final.
+
+---
+
+## 💻 Como Executar o Projeto Localmente
+
+### Pré-requisitos
+Certifique-se de ter instalado no seu computador:
+- [Node.js](https://nodejs.org/) (versão 18 ou superior)
+- Gerenciador de pacotes `pnpm` ou `npm`
+
+### Passo a Passo
+
+1. **Clonar o repositório:**
+   ```bash
+   git clone [https://github.com/rayssaokamura/Front-end.git](https://github.com/rayssaokamura/Front-end.git)

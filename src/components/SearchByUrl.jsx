@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState, useReducer } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -150,6 +151,14 @@ function SearchByUrl({ setResultado }) {
         )}
       </CardContent>
     </Card>
+=======
+function SearchByUrl() {
+  return (
+    <section>
+      <h2>Buscar por URL</h2>
+      <p>Insira a URL de uma imagem para identificar o anime.</p>
+    </section>
+>>>>>>> 9754ffcc2e4883ab87a6ffa6107b65aee7c6cc70
   );
 }
 
