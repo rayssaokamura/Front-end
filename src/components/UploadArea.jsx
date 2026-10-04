@@ -5,6 +5,8 @@ function UploadArea({ setResultado }) {
 
   const [arquivo, setArquivo] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [carregando, setCarregando] = useState(false);
+  const [erro, setErro] = useState(null);
 
   function handleArquivo(event) {
     const arquivoSelecionado = event.target.files[0];
@@ -14,13 +16,18 @@ function UploadArea({ setResultado }) {
     setArquivo(arquivoSelecionado);
 
     const imagem = URL.createObjectURL(arquivoSelecionado);
+
     setPreview(imagem);
   }
 
   async function buscarAnime() {
     if (!arquivo) return;
 
+    setCarregando(true);
+    setErro(null);
+
     const formData = new FormData();
+
     formData.append("image", arquivo);
 
     try {
@@ -75,7 +82,10 @@ function UploadArea({ setResultado }) {
       console.log("Resposta do AniList:", dadosAnime);
 
       if (!respostaAnime.ok || !dadosAnime.data?.Media) {
-        console.error("Erro ao buscar o anime no AniList:", dadosAnime);
+        console.error(
+          "Erro ao buscar o anime no AniList:",
+          dadosAnime
+        );
 
         setResultado(anime);
         return;
@@ -87,6 +97,9 @@ function UploadArea({ setResultado }) {
       });
     } catch (erro) {
       console.error("Erro ao buscar anime:", erro);
+      setErro("Não foi possível identificar o anime.");
+    } finally {
+      setCarregando(false);
     }
   }
 
@@ -107,7 +120,7 @@ function UploadArea({ setResultado }) {
       </button>
 
       {arquivo && (
-        <button onClick={buscarAnime}>
+        <button onClick={buscarAnime} disabled={carregando}>
           Buscar anime
         </button>
       )}
