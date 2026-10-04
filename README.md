@@ -53,3 +53,20 @@ Certifique-se de ter instalado no seu computador:
 1. **Clonar o repositório:**
    ```bash
    git clone [https://github.com/rayssaokamura/Front-end.git](https://github.com/rayssaokamura/Front-end.git)
+
+2. **Entrar na pasta do projeto:**
+    ```bash
+    cd Front-end
+
+3. **Instalar as dependências:**
+    ```bash
+    pnpm install # ou
+    npm install.  
+
+4. **Executar o servidor de desenvolvimento:**
+    ```bash    
+    pnpm dev # ou
+    npm run dev
+
+5. **Acessar no navegador:**
+Abra o endereço exibido no terminal (geralmente http://localhost:5173/).
