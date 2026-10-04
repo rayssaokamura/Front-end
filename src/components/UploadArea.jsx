@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-function UploadArea() {
+function UploadArea({ setResultado }) {
   const inputRef = useRef(null);
 
   const [arquivo, setArquivo] = useState(null);
@@ -15,6 +15,79 @@ function UploadArea() {
 
     const imagem = URL.createObjectURL(arquivoSelecionado);
     setPreview(imagem);
+  }
+
+  async function buscarAnime() {
+    if (!arquivo) return;
+
+    const formData = new FormData();
+    formData.append("image", arquivo);
+
+    try {
+      const resposta = await fetch("https://api.trace.moe/search", {
+        method: "POST",
+        body: formData,
+      });
+
+      const dados = await resposta.json();
+
+      console.log("Resposta do trace.moe:", dados);
+
+      if (!resposta.ok) {
+        console.error("Erro na API trace.moe:", dados);
+        return;
+      }
+
+      if (!dados.result || dados.result.length === 0) {
+        console.error("Nenhum anime encontrado.");
+        return;
+      }
+
+      const anime = dados.result[0];
+
+      const query = `
+        query ($id: Int) {
+          Media (id: $id, type: ANIME) {
+            title {
+              romaji
+              english
+              native
+            }
+          }
+        }
+      `;
+
+      const respostaAnime = await fetch("https://graphql.anilist.co", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: query,
+          variables: {
+            id: anime.anilist,
+          },
+        }),
+      });
+
+      const dadosAnime = await respostaAnime.json();
+
+      console.log("Resposta do AniList:", dadosAnime);
+
+      if (!respostaAnime.ok || !dadosAnime.data?.Media) {
+        console.error("Erro ao buscar o anime no AniList:", dadosAnime);
+
+        setResultado(anime);
+        return;
+      }
+
+      setResultado({
+        ...anime,
+        titulo: dadosAnime.data.Media.title,
+      });
+    } catch (erro) {
+      console.error("Erro ao buscar anime:", erro);
+    }
   }
 
   return (
@@ -32,6 +105,12 @@ function UploadArea() {
       <button onClick={() => inputRef.current.click()}>
         Escolher imagem
       </button>
+
+      {arquivo && (
+        <button onClick={buscarAnime}>
+          Buscar anime
+        </button>
+      )}
 
       {arquivo && <p>Arquivo selecionado: {arquivo.name}</p>}
 
