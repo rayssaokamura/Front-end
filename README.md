@@ -69,4 +69,5 @@ Certifique-se de ter instalado no seu computador:
     npm run dev
 
 5. **Acessar no navegador:**
-Abra o endereço exibido no terminal (geralmente http://localhost:5173/).
+    ```bash    
+    Abra o endereço exibido no terminal (geralmente http://localhost:5173/).
