@@ -54,7 +54,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background-image: url('https://previews.dropbox.com/p/thumb/ADJAMUsMteUYheO2F6Rmk__9p_DOWccFQS6C4HzlNlcRNDTFwYkOtv729GsExyyjxcKeT9wS2CheZ1Diw__p3wUo4eEIOdNa4mK4hmGvnXRXNnF86UV98nwVZP6xa_tExCZgl19dC9qxmJPwGkrCPA6IP2RPZkcv-xwvH6rfYjriP8xM9Vqg43TtXHvxvqLDduXFK7Sbi16fiSbkuyOsgUYaHib4Xp-LCzEj2PtcdGmDRzR2E7KrX3JEwbz_aWj0FSZXTdwAas1FK161u9MwfED4DJT4V5qL7UFLpO0DMQ1uvNCUqbzlqLDT1AJ3EZP49GR1ziLU8cYWKkAYvW1MSHYm96EWFEI6-97N6ha6ahQ76aYPB3pUbgPEOq1RDdauQdZTT-BytzMyKYv0ZD3Kje_Q/p.jpeg?is_prewarmed=true'); 
+  background-image: url('/background.jpg'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
